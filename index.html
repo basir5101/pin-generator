@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="pin-generator half-width">
-                    <input id="generate-pin-input" class="form-control" type="text">
+                    <input id="generated-pin" class="form-control" type="text">
                     <button onclick="generatePin()" class="generate-btn">Generate Pin</button>
                 </div>
             </div>
@@ -37,13 +37,13 @@
                               <div id="three" class="button">3</div>
                             </div>
                             <div class="calc-button-row">
-                                <div id="backSpace" class="button"><</div>
+                                <div onclick='backSpace()' class="button"><</div>
                                 <div id="zero" class="button">0</div>
                                 <div onclick="clearBtn()" class="button">C</div>
                             </div>
                             <div>
                                 <button id="submit" type="submit" class="submit-btn">Submit</button>
-                                <p class="action-left">3 try left</p>
+                                <p class="action-left"><span id="action-time">3</span> try left</p>
                             </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
 
 <script>
 
-    // pin match result display hide
+ // pin match result display hide
     
     document.getElementById('right-pin').style.display = 'none';
     document.getElementById('wrong-pin').style.display = 'none';
@@ -66,22 +66,22 @@
 // generate 4 digit random pin number
 
     function generatePin(){
-        var random = parseInt(Math.random()*3999);
+        const random = parseInt(Math.random()*3999);
         if(random <= 999){
             generatePin()
         }
         else{
-          document.getElementById('generate-pin-input').value = random;
+          document.getElementById('generated-pin').value = random;
 
         }
     }
 
-// function for all button
+// function for all buttons
 
     function buttonValue (btnId){
-          var eight = document.getElementById(btnId).addEventListener('click', function(){
-            value = document.getElementById(btnId).innerText;
-            var input = document.getElementById('matchPin').value += value;
+            document.getElementById(btnId).addEventListener('click', function(){
+            const value = document.getElementById(btnId).innerText;
+            const input = document.getElementById('matchPin').value += value;
             return input;
         });
     }
@@ -95,21 +95,33 @@
     buttonValue('two');
     buttonValue('one');
     buttonValue('zero');
-
+// clear button
 function clearBtn(){
     document.getElementById('matchPin').value = "";
+}
+
+// backspace button 
+function backSpace(){
+    let inputValue = document.getElementById('matchPin').value;
+        inputValue = inputValue.substring(0, inputValue.length - 1);
+        document.getElementById('matchPin').value = inputValue;
 }
 
 /// Pin match result
 
 document.getElementById('submit').addEventListener('click', function(){
-    var inputValue =  document.getElementById('matchPin').value;
-    var generatePin = document.getElementById('generate-pin-input').value;
-    if(inputValue == generatePin){
+    const inputValue =  document.getElementById('matchPin').value;
+    const generatePin = document.getElementById('generated-pin').value;
+    if(generatePin == ''){
+        document.getElementById('generated-pin').value = '';
+    }
+    else if(inputValue == generatePin){
         document.getElementById('right-pin').style.display = 'block';
+        document.getElementById('wrong-pin').style.display = 'none';
     }
     else{
-        document.getElementById('wrong-pin').style.display = 'none';
+        document.getElementById('wrong-pin').style.display = 'block';
+        document.getElementById('right-pin').style.display = 'none';
     }
 })
 
