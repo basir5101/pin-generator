@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pin Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="pin-generator half-width">
+                    <input id="generate-pin-input" class="form-control" type="text">
+                    <button onclick="generatePin()" class="generate-btn">Generate Pin</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-section half-width">
+                    <input id="matchPin" class="form-control" type="text">
+                    <div class="numbers">
+                        <div class="calc-body">
+                            <div class="calc-button-row">
+                              <div id="seven" class="button">7</div>
+                              <div id="eight" class="button">8</div>
+                              <div id="nine" class="button">9</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div id="four" class="button">4</div>
+                              <div id="five" class="button">5</div>
+                              <div id="six" class="button">6</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div id="one" class="button">1</div>
+                              <div id="two" class="button">2</div>
+                              <div id="three" class="button">3</div>
+                            </div>
+                            <div class="calc-button-row">
+                                <div id="backSpace" class="button"><</div>
+                                <div id="zero" class="button">0</div>
+                                <div onclick="clearBtn()" class="button">C</div>
+                            </div>
+                            <div>
+                                <button id="submit" type="submit" class="submit-btn">Submit</button>
+                                <p class="action-left">3 try left</p>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="notify-section">
+            <p id="wrong-pin" class="notify">❌ Pin Didn't Match, Please try again</p>
+            <p id="right-pin" class="notify">✅ Pin Matched... Secret door is opening for you</p>
+        </div>
+    </div>
+
+
+<script>
+
+    // pin match result display hide
+    
+    document.getElementById('right-pin').style.display = 'none';
+    document.getElementById('wrong-pin').style.display = 'none';
+
+// generate 4 digit random pin number
+
+    function generatePin(){
+        var random = parseInt(Math.random()*3999);
+        if(random <= 999){
+            generatePin()
+        }
+        else{
+          document.getElementById('generate-pin-input').value = random;
+
+        }
+    }
+
+// function for all button
+
+    function buttonValue (btnId){
+          var eight = document.getElementById(btnId).addEventListener('click', function(){
+            value = document.getElementById(btnId).innerText;
+            var input = document.getElementById('matchPin').value += value;
+            return input;
+        });
+    }
+    buttonValue('nine');
+    buttonValue('eight');
+    buttonValue('seven');
+    buttonValue('six');
+    buttonValue('five');
+    buttonValue('four');
+    buttonValue('three');
+    buttonValue('two');
+    buttonValue('one');
+    buttonValue('zero');
+
+function clearBtn(){
+    document.getElementById('matchPin').value = "";
+}
+
+/// Pin match result
+
+document.getElementById('submit').addEventListener('click', function(){
+    var inputValue =  document.getElementById('matchPin').value;
+    var generatePin = document.getElementById('generate-pin-input').value;
+    if(inputValue == generatePin){
+        document.getElementById('right-pin').style.display = 'block';
+    }
+    else{
+        document.getElementById('wrong-pin').style.display = 'none';
+    }
+})
+
+    </script>
+</body>
+</html>
