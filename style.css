@@ -30,6 +30,7 @@ body {
 .generate-btn:focus{
     outline: none;
     box-shadow: none;
+    transform: scale(0.8);
 }
 
 input[type='text']{
@@ -75,6 +76,12 @@ vertical-align: middle;
 margin-right: -4px;
 border-radius: 10px;
 cursor: pointer;
+}
+.button:hover{
+    background-color: #E0B612;
+}
+.button:active{
+    background-color: #ac9848;
 }
 .blink-me {
 color: #E0B612;
