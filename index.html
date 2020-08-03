@@ -66,12 +66,12 @@
 // generate 4 digit random pin number
 
     function generatePin(){
-        const random = parseInt(Math.random()*3999);
-        if(random <= 999){
+        const randomPin = parseInt(Math.random()*3999);
+        if(randomPin <= 999){
             generatePin()
         }
         else{
-          document.getElementById('generated-pin').value = random;
+          document.getElementById('generated-pin').value = randomPin;
 
         }
     }
